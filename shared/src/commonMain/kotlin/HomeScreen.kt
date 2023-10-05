@@ -12,15 +12,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import navigation.ComplexComponentScreen
+import navigation.HomeScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
+@Composable
+fun MainApp() {
+    Navigator(HomeScreen)
+}
+
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun App() {
+fun HomePage() {
+    val navigator = LocalNavigator.currentOrThrow
+
     MaterialTheme {
         var greetingText by remember { mutableStateOf("Hello, World!") }
         var showImage by remember { mutableStateOf(false) }
+
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = {
                 greetingText = "Hello, ${getPlatformName()}"
@@ -34,8 +47,12 @@ fun App() {
                     null
                 )
             }
+            Button(onClick = {
+                navigator push ComplexComponentScreen
+            }) {
+                Text("Allez go hein")
+            }
         }
     }
 }
-
 expect fun getPlatformName(): String

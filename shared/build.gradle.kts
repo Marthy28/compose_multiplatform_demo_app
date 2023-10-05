@@ -28,13 +28,15 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                val voyagerVersion = "1.0.0-rc05"
+                implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
             }
         }
         val androidMain by getting {
             dependencies {
                 api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.10.1")
+                api("androidx.core:core-ktx:1.12.0")
             }
         }
         val iosX64Main by getting
@@ -72,4 +74,7 @@ android {
     kotlin {
         jvmToolchain(11)
     }
+}
+dependencies {
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.3")
 }
